@@ -47,11 +47,8 @@ function searchImg(e) {
     
 function onLoadMore() { 
     newsAPIservice.fetchCards().then(data => {
-                
-                if (data.hits.length === 0) {
-                    Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-                    return;
-                }
+
+            
                 
         
                 const markupCards = createCards(data.hits)
