@@ -30,7 +30,7 @@ function searchImg(e) {
     newsAPIservice.resetPage();
 
     newsAPIservice.fetchCards().then(data => {
-                
+  
                 if (newsAPIservice.page >= data.totalHits) {
                     Notify.failure('We`re sorry but you`ve reached the end of search results');
                     btnLoadMoreRef.hidden = true;
@@ -46,13 +46,7 @@ function searchImg(e) {
     
 function onLoadMore() { 
     newsAPIservice.fetchCards().then(data => {
-
-             if (!data.hits.length) {
-                return Notify.failure(
-                'Sorry, there are no images matching your search query. Please try again.'
-                );
-            }
-                
+ 
         
                 const markupCards = createCards(data.hits)
                 CreateMarkupCards(markupCards)
