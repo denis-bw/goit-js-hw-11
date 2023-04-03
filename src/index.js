@@ -21,46 +21,48 @@ else {
 }
 
 
-function searchImg(e) {
+ function searchImg(e) {
     e.preventDefault();
     
     newsAPIservice.query = e.currentTarget.elements.searchQuery.value;
-    if (newsAPIservice.query === '') return;
+
+    if (newsAPIservice.query === '') {
+        return Notiflix.Notify.failure('Nothing entered in the search box.');
+    };
+
     btnLoadMoreRef.hidden = false;
     newsAPIservice.resetPage();
 
-    newsAPIservice.fetchCards().then(data => {
-  
-                if (newsAPIservice.page >= data.totalHits) {
-                    Notify.failure('We`re sorry but you`ve reached the end of search results');
-                    btnLoadMoreRef.hidden = true;
-                }
-                const markupCards = createCards(data.hits)
+    try {
+         newsAPIservice.fetchCards().then(data => {
+         
                 ClearCardsContent();
-                CreateMarkupCards(markupCards)
-    }).finally(
-        e.currentTarget.elements.searchQuery.value =''
-    )
+                createCards(data.hits)
+        })
+    } catch {
+        Notiflix.Notify.failure('server error');
+    }
 }
+
+async function onLoadMore() { 
+    const data = await newsAPIservice.fetchCards(); 
+    createCards(data.hits)
+}
+
+
+
+function createCards(data) {
+
+        // if (!data.hits.length) {
+        //     return Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+        // }
+        // if (newsAPIservice.page >= data.totalHits) {
+        //     Notiflix.Notify.failure('We`re sorry but you`ve reached the end of search results');
+        //     btnLoadMoreRef.hidden = true;
+        // }
 
     
-function onLoadMore() { 
-    newsAPIservice.fetchCards().then(data => {
- 
-        
-                const markupCards = createCards(data.hits)
-                CreateMarkupCards(markupCards)
-    }); 
-}
-
-function CreateMarkupCards(markupCards) { 
-    
-    divRef.insertAdjacentHTML('beforeend', markupCards );
-}
-
-function createCards(array) {
-        
-    return array.map(element => {
+    const markupCards = data.map(element => {
         
         return `<div class="photo-card">
                 <img src="${element.webformatURL}" alt="${element.tags}" loading="lazy" />
@@ -80,6 +82,8 @@ function createCards(array) {
                 </div>
                 </div>`
     }).join();
+
+     divRef.insertAdjacentHTML('beforeend', markupCards );
 }
 
 function ClearCardsContent() {

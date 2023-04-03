@@ -22,12 +22,8 @@ export default class APIservice {
             })
             const url = `https://pixabay.com/api/?${searchParams}`;
 
-            return await axios.get(url).then(data => {
-                if (!data.hits.length) {
-                   return Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-                }
-                return data;
-            })
+            return await axios.get(url).then(response => response.data);
+            
         } catch (error) {
             throw new Error(error);
         }
