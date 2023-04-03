@@ -30,10 +30,7 @@ function searchImg(e) {
     newsAPIservice.resetPage();
 
     newsAPIservice.fetchCards().then(data => {
-                // console.log(data.hits)
-                if (!data.hits.length) {
-                   return Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-                }
+                
                 if (newsAPIservice.page >= data.totalHits) {
                     Notify.failure('We`re sorry but you`ve reached the end of search results');
                     btnLoadMoreRef.hidden = true;
