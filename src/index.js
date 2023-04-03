@@ -35,7 +35,6 @@ else {
 
     try {
          newsAPIservice.fetchCards().then(data => {
-         
                 ClearCardsContent();
                 createCards(data.hits)
         })
@@ -53,13 +52,13 @@ async function onLoadMore() {
 
 function createCards(data) {
 
-        // if (!data.hits.length) {
-        //     return Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
-        // }
-        // if (newsAPIservice.page >= data.totalHits) {
-        //     Notiflix.Notify.failure('We`re sorry but you`ve reached the end of search results');
-        //     btnLoadMoreRef.hidden = true;
-        // }
+        if (data.length === 0) {
+             Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
+        }
+        if (newsAPIservice.page >= data.totalHits) {
+            Notiflix.Notify.failure('We`re sorry but you`ve reached the end of search results');
+            btnLoadMoreRef.hidden = true;
+        }
 
     
     const markupCards = data.map(element => {
