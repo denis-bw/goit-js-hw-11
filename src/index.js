@@ -55,7 +55,7 @@ const lightbox = new SimpleLightbox('.gallery a', {
 
 async function onLoadMore() { 
     const data = await newsAPIservice.fetchCards(); 
-    createCards(data.hits)
+    createCards(data)
 }
 
 
@@ -66,8 +66,7 @@ function createCards(data) {
             Notiflix.Notify.failure("Sorry, there are no images matching your search query. Please try again.");
             btnLoadMoreRef.classList.add('load-more-hiden');
             return;
-    }
-        console.log(data)
+        }
 
         Notiflix.Notify.success(`'Hooray! We found ${data.totalHits} images.'`);
 
