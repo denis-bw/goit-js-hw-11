@@ -58,6 +58,8 @@ body {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
   background-color: #0a0a23;
     color: #fff;
     border: none;
@@ -83,6 +85,7 @@ body {
   max-width: 400;
   height: 500px;
   box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
 }
 
 .info-item {
@@ -91,8 +94,12 @@ body {
   padding: 2px 1px 0;
   color: #141718;
   cursor: auto;
+  text-overflow: ellipsis;
 }
 
+.info {
+  overflow: hidden
+}
 
 b {
   text-decoration: none;

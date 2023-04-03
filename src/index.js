@@ -80,7 +80,7 @@ function createCards(data) {
 
         return `<a class="gallery__item" href="${element.largeImageURL}">
                     <div class="photo-card">
-                        <img width="350px height="400" src="${element.webformatURL}" alt="${element.tags}" loading="lazy" />
+                        <img width="350px" max-height="250" src="${element.webformatURL}" alt="${element.tags}" loading="lazy" />
                         <div class="info">
                             <p class="info-item">
                              <b>Likes ${element.likes}</b>
